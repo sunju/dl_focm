@@ -1,0 +1,6 @@
+#!/bin/bash 
+for i in $(ls *.pdf)
+    do 
+    echo $i
+    pdfcrop $i $i  
+    done 
