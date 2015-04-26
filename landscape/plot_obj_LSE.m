@@ -1,14 +1,17 @@
 clc;close all; clear all;
-% Reproducing the reparameterized function landscape in Fig. 2 and Fig. 4 of the paper
+% Reproduce the reparameterized function landscape in Fig. 2 and Fig. 4 of the paper
 % "Complete Dictionary Recovery over the Sphere",
 % by Ju Sun, Qing Qu, and John Wright.
+% 
 % Dictionary Learning (DL) Problem formulation: Y = A_0*X_0,
 % A_0: n-by-n orthogonal matrix, fixed to be A_0 = I;
 % X_0: n-by-p matrix, row independent or column sparse
 % Reparameterize q = [w ; sqrt(1-||w||^2)]', ||w||<=1,
-% plot the function landscape h_mu = mu*log cosh(q'*Y/mu) over w.
-% Code written by Ju Sun, Qing Qu and John Wright. Current version updated
-% on 04/24/2015.
+% Plot the function landscape h_mu = mu*log cosh(q'*Y/mu) in the w space.
+%
+% 
+% Code written by Ju Sun, Qing Qu and John Wright. 
+% Last updated: Sat 25 Apr 2015 05:25:23 PM EDT 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 rng(1,'twister'); % fix the seed for random number generation
@@ -24,20 +27,23 @@ p = 100000;% number of samples
 
 % data model selection:
 % 1 = planted sparse vector model
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model 1 is assumed in the paper:   
+% Finding a Sparse Vector in a Subspace: Linear Sparsity Using Alternating Direction. 
+% By  Qing Qu, Ju Sun, John Wright. NIPS'14. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2 = DL model, independent row, i.i.d. Bernoulli-Gaussian
 % 3 = DL model, independent row, i.i.d. Bernoulli-Uniform
 % 4 = DL model, correlated row, Bernoulli-Gaussian
 % 5 = DL model, correlated row, Bernoulli-Uniform
-choice = 1;
+choice = 2;
 
 
 %% generate random data
-% generate correlation matrix
+%% B is square root of the covariance matrix 
 A = 0.1*randn(3, 3);
-A(1, 1) = 1;
-A(2, 2) = 1;
-A(3, 3) = 1;
-B = A' + A;
+A = A - diag(diag(A)) + diag(ones(3, 1)); 
+B = 0.5*(A' + A);
 % generate data
 switch choice
     case 1
@@ -47,11 +53,11 @@ switch choice
     case 2
         X = randn(3,p) .* double( rand(3,p) < theta );
     case 3
-        X = 0.1 * (rand(3,p)-0.5) .* double( rand(3,p) < theta );
+        X = (rand(3,p)-0.5) .* double( rand(3,p) < theta );
     case 4
-        X = 0.1*(B *randn(3,p)).* double( rand(3,p) < theta );
+        X = (B *randn(3,p)).* double( rand(3,p) < theta );
     case 5
-        X = 0.1*(B *(rand(3,p)-0.5)).* double( rand(3,p) < theta );
+        X = (B *(rand(3,p)-0.5)).* double( rand(3,p) < theta );
 end
 
 fnVals = zeros(numPts,1);
@@ -77,7 +83,7 @@ for i = 1:length(tVec)
         % calculate the gradient of the objective wrt w = [u v]
         z = q'*X;
         
-        fnVals(k) = sum( mu * log( (exp( z / mu ) + exp( -z / mu )) / 2 ) ) / p;
+        fnVals(k) = sum( mu * log( cosh(z/mu) ) ) / p;
         
         uVals(k) = u;
         vVals(k) = v;
