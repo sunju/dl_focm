@@ -1,8 +1,19 @@
-% Used to generate the ortho-learning figure in FOCM. 
-% Last update: Fri 17 Oct 2014 04:56:25 PM EDT 
+% Codes to reproduce Figure 1 in the paper: 
+% "Complete Dictionary Recovery over the Sphere",
+% by Ju Sun, Qing Qu, and John Wright.
+% 
+%Description of major subroutines
+%================================
+%image_to_patches.m : convert input image into nonoverlapping patches of size patch_size 
+%learn_orthobasis_adm : learn an orthogonal sparsifying dictionary for the collections of patches
+%visualize_orthobasis : visualize the learned orthogonal dictionaries as image patches 
+% 
+% 
+% Code written by Ju Sun, Qing Qu and John Wright. 
+% Last Updated: Sat 25 Apr 2015 11:12:22 PM EDT 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear;
-clc;
+clear all; clc;
 
 num_trial_per_img = 100;
 patch_size = 8; 
