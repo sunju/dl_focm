@@ -11,8 +11,8 @@ clc;close all; clear all;
 %
 % 
 % Code written by Ju Sun, Qing Qu and John Wright. 
-% Last updated: Sat 25 Apr 2015 05:25:23 PM EDT 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Last updated: Sat 25 Apr 2015 10:29:09 PM EDT 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 rng(1,'twister'); % fix the seed for random number generation
 
@@ -22,7 +22,7 @@ thetaVec = 0:.02:2*pi;
 numPts = length(tVec) * length(thetaVec);
 
 mu = 1/50;% smoothing parameters
-theta = 0.9;% sparsity
+theta = 0.1;% sparsity
 p = 100000;% number of samples
 
 % data model selection:
