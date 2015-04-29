@@ -1,6 +1,6 @@
 # Summary
 This set of Matlab codes reproduce the figures and experimental results published in our paper: 
-> **Complete Dictionary Recovery over the Sphere**. 
+> **Complete Dictionary Recovery over the Sphere**.   
 > Ju Sun, Qing Qu, John Wright. http://arxiv.org/abs/1504.06785. 
 
 + Folder **image_experiment_focm**: to reproduce the results in Figure 1. Run *test_images.m* to start. 
