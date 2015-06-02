@@ -34,7 +34,7 @@ function q = TR_Sphere( Y, mu, q_init )
 		[f,g,H] = l1_exp_approx(Y,q,mu,true); % evaluate the function, gradient and hessian at q
 		
 		%solve TR-subprolbem
-		A = U' * H * U; % hessian in the tangent space T_q
+		A = U' * H * U - q' * g * eye(n-1); % hessian in the tangent space T_q
 		b = U' * g; % gradient in the tangent space T_q
 		[xi,opt] = Solve_TR_Subproblem(A,b,Delta); % optimal direction xi in the tangent space T_q
 		

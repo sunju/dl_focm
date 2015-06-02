@@ -1,8 +1,9 @@
 clc;close all;clear all;
 % Implementation for the Phase Transition of the Trust Region (TR) Method presented in the paper
 % "Complete Dictionary Recovery over the Sphere",
-% by Ju Sun, Qing Qu, and John Wright.
-%
+% by Ju Sun, Qing Qu, and John Wright. 
+% http://arxiv.org/abs/1504.06785
+% 
 % 1. l1_exp_approx.m: evaluate the value, gradient and hessian 
 % for the function: h_mu(x) = mu * log cosh(x/mu)
 %
@@ -22,14 +23,14 @@ clc;close all;clear all;
 %
 % 
 % Code written by Ju Sun, Qing Qu and John Wright. 
-% Last Updated: Sat 25 Apr 2015 11:01:19 PM EDT 
+% Last Updated: Tue 02 Jun 2015 02:52:57 PM EDT 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Environment Settings
-n = [2:5:120]; % dictionary size n
+n = [2:5:150]; % dictionary size n
 mu = 1/100;% smoothing parameter mu
-p = 5*n.^3; % number of samples p
-k = [1:5:120]; % sparsity level
+p = ceil(5*n.^2 *log(n)); % number of samples p
+k = [1:5:130]; % sparsity level
 num_rep = 5; % number of simulation repetitions
 tol = mu; % error tolerance  
 Prob = zeros(length(k),length(n)); % record the probability of success
@@ -67,7 +68,7 @@ for t = 1:num_rep
             set(gca,'YDir','normal');
             xlabel('Dictionary Dimension n');
             ylabel('Sparsity Level k');
-            title('p = 5n^3');
+            title('$$p = 5n^2 \log(n)$$', 'interpreter','latex');
             colormap('gray');
             colorbar;
             pause(.25);
@@ -82,6 +83,6 @@ imagesc(n, k, Prob/num_rep);
 set(gca,'YDir','normal');
 xlabel('Dictionary Dimension n');
 ylabel('Sparsity Level k');
-title('Phase Transition: p = 5n^3');
+title('$$p = 5n^2 \log(n)$$', 'interpreter','latex');
 colorbar;
 colormap('gray');
