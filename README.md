@@ -8,3 +8,5 @@ This set of Matlab codes reproduce the figures and experimental results publishe
 + Folder **simulation**: to reproduce the phase transition in Figure 5. Run *single_vector_pt.m* to start. 
 
 Codes written by Ju Sun, Qing Qu, and John Wright. Questions or bug reports please send email to Ju Sun, sunjunus@gmail.com 
+
+Thanks to bug reporters: Yanbing Dong
