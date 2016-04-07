@@ -29,7 +29,7 @@ clc;close all;clear all;
 %% Environment Settings
 n = [2:5:150]; % dictionary size n
 mu = 1/100;% smoothing parameter mu
-p = ceil(5*n.^2 *log(n)); % number of samples p
+p = ceil(5*n.^2 .*log(n)); % number of samples p
 k = [1:5:130]; % sparsity level
 num_rep = 5; % number of simulation repetitions
 tol = mu; % error tolerance  
